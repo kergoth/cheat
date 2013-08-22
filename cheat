@@ -11,10 +11,10 @@ def cheat_directories():
     except ImportError:
         pass
 
-    default = [ default_dir for default_dir in default_directories if os.path.isdir(default_dir) ]
+    default = [ default_dir for default_dir in default_directories if os.path.isdir(default_dir) or os.path.islink(default_dir) ]
     if 'CHEATPATH' in os.environ and os.environ['CHEATPATH']:
         return [ path for path in os.environ['CHEATPATH'].split(os.pathsep)\
-                if os.path.isdir(path) ] + default
+                if os.path.isdir(path) or os.path.islink(path) ] + default
     else:
         return default
 
